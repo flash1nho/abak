@@ -17,7 +17,7 @@
           </tr>
           <tr>
             <td>Родительская страница</td>
-            <td><%= @page.parent.title if @page.parent %></td>
+            <td><%= link_to @page.parent.title, @page.parent.path if @page.parent %></td>
           </tr>
           <tr>
             <td>Текст страницы</td>
@@ -30,4 +30,4 @@
 </div>
 <%= link_to 'Добавить подстраницу', "#{@page.path}/add" %> |
 <%= link_to 'Редактировать', "#{@page.path}/edit" %> |
-<%= link_to 'Назад', pages_path %>
+<%= link_to 'Главная', pages_path %>

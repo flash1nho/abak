@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'pages#index'
   resources :pages
-  match "/add", :to => "pages#new", :via => :get
+  match "/add", :to => "pages#add", :via => :get
   match "*path", :to => "pages#show", :via => :get
   match "*path/destroy", :to => "pages#destroy", :via => :delete
 

@@ -5,11 +5,10 @@ class ApplicationController < ActionController::Base
 
   def get_path(path)
   	last_path = path.split('/').last rescue nil
-  	if last_path
-  	  if %w{edit add}.include?(last_path)
-  	    path = path.gsub('/' + last_path, '')
-      end
+  	if last_path && %w{edit add}.include?(last_path)
+  	  path = path.gsub('/' + last_path, '')
     end
     '/' + path.to_s
   end
+
 end

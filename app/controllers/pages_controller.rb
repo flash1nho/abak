@@ -10,10 +10,11 @@ class PagesController < ApplicationController
   # GET /pages/1
   # GET /pages/1.json
   def show
+    render_404 if @page.nil?
   end
 
   # GET /pages/new
-  def new
+  def add
     @page = Page.new
   end
 
@@ -31,7 +32,7 @@ class PagesController < ApplicationController
         format.html { redirect_to URI.encode(@page.path), notice: 'Страница была успешно создана.' }
         format.json { render :show, status: :created, location: @page.path }
       else
-        format.html { render :new }
+        format.html { render :add }
         format.json { render json: @page.errors, status: :unprocessable_entity }
       end
     end
@@ -70,22 +71,26 @@ class PagesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_page
       path = get_path(params[:path])
-      @page = Page.find_by_path(path)
       last_path = params[:path].split('/').last rescue nil
-      if last_path
-        if last_path == 'edit'
-          render :edit
-        elsif last_path == 'add'
+      if last_path && %w{edit add}.include?(last_path)
+        if last_path == 'add'
           @page = Page.new
-          p path
           @page.parent_id = Page.find_by_path(path).id
-          render :new
+        else
+          @page = Page.find_by_path(path)
         end
+        render last_path
+      else
+        @page = Page.find_by_path(path)
       end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def page_params
       params.require(:page).permit(:name, :title, :parent_id, :body)
+    end
+
+    def render_404(exception = nil)
+      render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
     end
 end
