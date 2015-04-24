@@ -4,9 +4,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def get_path(path)
-  	last_path = path.split('/').last rescue nil
-  	if last_path && %w{edit add}.include?(last_path)
-  	  path = path.gsub('/' + last_path, '')
+    last_path = path.split('/').last rescue nil
+    if last_path && %w{edit add}.include?(last_path)
+      path = path.gsub('/' + last_path, '')
     end
     '/' + path.to_s
   end

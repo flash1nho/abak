@@ -33,10 +33,10 @@ class Page < ActiveRecord::Base
   end
 
   def parents
-  	if self.id
-  	  Page.where("id != ?", self.id).order(:name)
-  	else
-  	  Page.order(:name)	
-  	end
+    if self.id
+      Page.where("id != ?", self.id).order(:name)
+    else
+      Page.order(:name)	
+    end
   end
 end
