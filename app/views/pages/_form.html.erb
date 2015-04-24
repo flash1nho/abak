@@ -1,33 +1,32 @@
 <%= form_for(@page) do |f| %>
-  <% if @page.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@page.errors.count, "error") %> prohibited this page from being saved:</h2>
+  <%= render "shared/form_errors", obj: @page  %>
 
-      <ul>
-      <% @page.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: 'form-control' %>
   </div>
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :title %><br>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, class: 'form-control' %>
   </div>
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :parent_id %><br>
-    <%= f.number_field :parent_id %>
+    <% if @page.id %>
+      <%= f.select :parent_id, @page.parents.map{|t| [t.title, t.id]}, { include_blank: true }, class: 'form-control' %>
+    <% else %>
+      <%= f.hidden_field :parent_id %>
+      <big><%= @page.parent.title if @page.parent %></big>
+    <% end %>
   </div>
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :body %><br>
-    <%= f.text_area :body %>
+    <%= f.text_area :body, class: 'form-control', id: 'markdown-editor', 'data-provide' => "markdown", 'data-iconlibrary' => "fa" %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= form_submit(action_name) %>
   </div>
 <% end %>
+
+<%= javascript_include_tag("markdown.js") %>
+<%= javascript_include_tag("to-markdown.js") %>
+<%= javascript_include_tag("bootstrap-markdown.js") %>

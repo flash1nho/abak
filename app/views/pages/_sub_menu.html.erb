@@ -1,0 +1,8 @@
+<ul>
+  <% page.children.each do |sub| %>
+    <li>
+      <%= link_to_unless_current sub.title, sub.path %>
+      <%= render 'sub_menu', page: sub %>
+    </li>
+  <% end %>
+</ul>

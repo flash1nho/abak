@@ -5,6 +5,8 @@ class CreatePages < ActiveRecord::Migration
       t.string :title
       t.integer :parent_id
       t.text :body
+      t.string :slug
+      t.string :path
 
       t.timestamps
     end

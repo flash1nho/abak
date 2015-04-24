@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root 'pages#index'
   resources :pages
+  match "/add", :to => "pages#new", :via => :get
+  match "*path", :to => "pages#show", :via => :get
+  match "*path/destroy", :to => "pages#destroy", :via => :delete
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

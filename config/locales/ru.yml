@@ -1,0 +1,18 @@
+# config/locales/ru.yml
+ru:
+  activerecord:
+    attributes:
+      page:
+        name: Имя страницы
+        title: Название страницы
+        parent_id: Родительская страница
+        body: Текст страницы 
+    errors:
+      models:
+        page:
+          attributes:
+            name:
+              blank: не заполнено
+              invalid: не соответствует формату
+            title:
+              blank: не заполнено
